@@ -1,0 +1,99 @@
+<!--
+Members:
+MACABENTA, Vhardey John F.
+CABEL, Lunesa
+SAHAGUN, Princess
+GALIMBA, Avril
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Voting dApp</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Online Campus Voting</h1>
+    <p id="walletStatus">Wallet not connected</p>
+    <button id="connectButton" type="button">Connect MetaMask</button>
+  </header>
+
+  <nav aria-label="Main navigation">
+    <button type="button" data-page="registerPage">Voter Registration / Login</button>
+    <button type="button" data-page="candidatesPage">Candidates</button>
+    <button type="button" data-page="votingPage">Vote</button>
+    <button type="button" data-page="resultsPage">Results</button>
+    <button type="button" data-page="adminPage">Electoral Admin</button>
+  </nav>
+
+  <main>
+    <p id="message" role="status" aria-live="polite"></p>
+
+    <section id="registerPage">
+      <h2>Voter Registration and Login</h2>
+      <p>Connect MetaMask first. The wallet still needs approval from the electoral admin before it can vote.</p>
+      <form id="registrationForm">
+        <label for="voterName">Full name</label>
+        <input id="voterName" name="voterName" required>
+        <label for="studentId">Student ID</label>
+        <input id="studentId" name="studentId" required>
+        <button type="submit">Register this wallet</button>
+      </form>
+      <h3>Login</h3>
+      <p>Connect the MetaMask wallet you are registered with.</p>
+      <button id="loginButton" type="button">Check Login</button>
+      <p id="loginStatus">Not logged in.</p>
+    </section>
+
+    <section id="candidatesPage" hidden>
+      <h2>Candidates</h2>
+      <p id="electionStatus">Election status: not loaded</p>
+      <div id="candidateList"></div>
+    </section>
+
+    <section id="votingPage" hidden>
+      <h2>Voting Page</h2>
+      <p>Connect and log in with a registered wallet. Only wallets authorized by the admin can vote, and each wallet can vote once.</p>
+      <div id="votingCandidateList"></div>
+    </section>
+
+    <section id="resultsPage" hidden>
+      <h2>Tabulation Results</h2>
+      <p id="resultsNotice">Final results will be available after the admin closes voting.</p>
+      <p id="totalVotes">Total votes: 0</p>
+      <div id="resultsList"></div>
+    </section>
+
+    <section id="adminPage" hidden>
+      <h2>Electoral Admin</h2>
+      <p>The connected wallet must be the owner/admin wallet that deployed the smart contract.</p>
+      <p id="adminStatus">Admin status has not been checked.</p>
+
+      <h3>Add Candidate</h3>
+      <form id="candidateForm">
+        <label for="candidateName">Candidate name</label>
+        <input id="candidateName" required>
+        <label for="candidatePosition">Position</label>
+        <input id="candidatePosition" required>
+        <button type="submit">Add Candidate</button>
+      </form>
+
+      <h3>Authorize Voter</h3>
+      <form id="authorizeForm">
+        <label for="voterAddress">Voter wallet address</label>
+        <input id="voterAddress" placeholder="0x..." required>
+        <button type="submit">Authorize Wallet</button>
+      </form>
+
+      <h3>Election Controls</h3>
+      <button id="startElectionButton" type="button">Start Voting</button>
+      <button id="endElectionButton" type="button">Close Voting</button>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
